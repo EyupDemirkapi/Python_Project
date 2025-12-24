@@ -15,7 +15,7 @@ def start_app():
 def baslik_olustur(root):
     header = tk.Frame(root, height=80, bg="Blue")
     header.pack(fill="x")
-    tk.Label(header,text="Araç Kiralama Sistemi",fg="white",bg="Blue",font=("Arial",20,"bold")).pack(pady=20)
+    tk.Label(header,text="🚗 Araç Kiralama Sistemi ✈️",fg="white",bg="Blue",font=("Arial",20,"bold")).pack(pady=20)
 
 def menu_olustur(root):
     menu = tk.Frame(root, height=40, bg="LightGray")
@@ -24,7 +24,7 @@ def menu_olustur(root):
         tk.Button(menu, text=text).pack(side="left",padx=10,pady=5)
 
 def anabolum_olustur(root):
-    filtre_alani = tk.Frame(root, width=150, bg="#ecf0f1")
+    filtre_alani = tk.Frame(root, width=250, bg="#ecf0f1")
     filtre_alani.pack(side="left", fill="y")
     tk.Label(filtre_alani,text="Filtreler",bg="Gray",font=("Arial",11,"bold")).pack(pady=10)
 
@@ -39,7 +39,7 @@ def anabolum_olustur(root):
     canvas.bind("<Configure>",lambda e: canvas.itemconfig(canvas_window_id, width=e.width))
     icerik_alani.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
     arama_alani_olustur(icerik_alani)
-    for i in range(6):
+    for i in range(40):
         aracKarti_olustur(icerik_alani)
 
 def arama_alani_olustur(parent):
