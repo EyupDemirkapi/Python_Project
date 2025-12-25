@@ -224,10 +224,9 @@ def yardim_sayfasi(baba_frame):
     frame.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
     canvas.bind("<Configure>",lambda e: canvas.itemconfig(canvas_window, width=e.width))
     tk.Label(frame,text="Yardım",font=("Arial", 18, "bold")).pack(fill="x", pady=20)
-    tk.Label(frame,text="Öneri ve geri bildirim için\n").pack(fill="x", padx=40, pady=3)
+    tk.Label(frame,text="Öneri ve geri bildirim için\ne-mail\neyupdemirkapi@marun.edu.tr\nemrearslan24@marun.edu.tr\nomeroduncu@marun.edu.tr").pack(fill="x", padx=40, pady=3)
 
     return anaframe
-
 
 def arama_alani_olustur(ana_frame):
     frame = tk.Frame(ana_frame, bg=renkler[0], pady=10)
