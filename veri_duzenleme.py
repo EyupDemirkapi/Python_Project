@@ -10,7 +10,7 @@ def araclari_oku():
     with open(veri_dosyasi, "r", encoding="utf-8") as f:
         araclar = json.load(f)
     for arac in araclar:
-        arac.setdefault("fotograf", "data/default.png")
+        arac.setdefault("fotograf", "assets/default.png")
         arac.setdefault("durum", "müsait")
         arac.setdefault("musteri_ad", "")
         arac.setdefault("gun_sayisi", 0)

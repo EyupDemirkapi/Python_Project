@@ -170,13 +170,13 @@ def arac_ekle_sayfasi(baba_frame):
                 messagebox.showerror("Hata", "Tüm alanlar doldurulmalı")
                 return
             if not fotoimport:
-                fotoimport = "data/default.png"
+                fotoimport = "assets/default.png"
             else:
                 fotoimport = fotoimport.replace("/","\\")
-                kopyakodu = "copy "+fotoimport+" "+os.getcwd()+"\data\\"+fotoimport.split("\\")[-1]
+                kopyakodu = "copy "+fotoimport+" "+os.getcwd()+"\\assets\\"+fotoimport.split("\\")[-1]
                 os.system(kopyakodu)
                 print(kopyakodu)
-                fotoimport = "data/"+fotoimport.split("\\")[-1]
+                fotoimport = "assets/"+fotoimport.split("\\")[-1]
             ucret = int(ucret_entry.get())
             arac = {"plaka": plaka_entry.get(),"marka": marka_entry.get(),"model": model_entry.get(),"fotograf": fotoimport,"gunluk_ucret": ucret}
             arac_ekle(arac)
