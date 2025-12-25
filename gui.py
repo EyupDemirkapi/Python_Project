@@ -6,7 +6,7 @@ ana_frame = None
 sayfalar = {}
 icerik_ref = None
 
-renkler = ["#ffffff","#639bff","000000","#ecf0f1","000000","#ecf0f1"]
+renkler = ["#f7f7f7","#639bff","000000","#ecf0f1","#a8db2b","#b70000","#e4b133"]
 
 
 def start_app():
@@ -47,12 +47,12 @@ def sayfa_goster(ad):
 def araclar_sayfasi(baba_frame):
     anaframe = tk.Frame(baba_frame)
     anaframe.pack(fill="both", expand=True)
-    filtre_alani = tk.Frame(anaframe, width=250, bg=renkler[5])
+    filtre_alani = tk.Frame(anaframe, width=250, bg=renkler[3])
     filtre_alani.pack(side="left", fill="y")
     filtre_alani.pack_propagate(False)
     sag_frame = tk.Frame(anaframe)
     sag_frame.pack(side="left", fill="both", expand=True)
-    canvas = tk.Canvas(sag_frame, bg="white")
+    canvas = tk.Canvas(sag_frame, bg=renkler[0])
     canvas.pack(side="left", fill="both", expand=True)
 
     global ana_canvas
@@ -61,29 +61,29 @@ def araclar_sayfasi(baba_frame):
     scrollbar = tk.Scrollbar(sag_frame, orient="vertical", command=canvas.yview)
     scrollbar.pack(side="right", fill="y")
     canvas.configure(yscrollcommand=scrollbar.set)
-    frame = tk.Frame(canvas, bg="white")
+    frame = tk.Frame(canvas, bg=renkler[0])
     canvas.create_window((0, 0), window=frame, anchor="nw")
     frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
     tk.Label(filtre_alani, text="Filtreler",fg=renkler[0], bg=renkler[1],font=("Arial", 11, "bold")).pack(fill="x", pady=(0,5))
-    tk.Label(filtre_alani, text="Markalar", bg="#ecf0f1",font=("Arial", 10, "bold")).pack(anchor="w", padx=10)
+    tk.Label(filtre_alani, text="Markalar", bg=renkler[3],font=("Arial", 10, "bold")).pack(anchor="w", padx=10)
     global markalar_frame
-    markalar_frame = tk.Frame(filtre_alani, bg="#ecf0f1")
+    markalar_frame = tk.Frame(filtre_alani, bg=renkler[3])
     markalar_frame.pack(fill="x")
     marka_butonlari_olustur(markalar_frame)
-    tk.Label(filtre_alani, text="Fiyat Aralığı", bg="#ecf0f1",font=("Arial", 10, "bold")).pack(anchor="w", padx=10, pady=(10, 0))
+    tk.Label(filtre_alani, text="Fiyat Aralığı", bg=renkler[3],font=("Arial", 10, "bold")).pack(anchor="w", padx=10, pady=(10, 0))
     global fiyatlar_frame
-    fiyatlar_frame = tk.Frame(filtre_alani, bg="#ecf0f1")
+    fiyatlar_frame = tk.Frame(filtre_alani, bg=renkler[3])
     fiyatlar_frame.pack(fill="x")
     fiyat_butonlari_olustur(fiyatlar_frame)
 
     tk.Button(filtre_alani, text="Filtrele",command=lambda: checkbox_filtrele(marka_vars, fiyat_vars)).pack(pady=5)
     tk.Button(filtre_alani, text="Temizle",command=lambda: filtreleri_temizle(marka_vars, fiyat_vars)).pack(pady=5)
-    arama_alani = tk.Frame(frame, bg="white")
+    arama_alani = tk.Frame(frame, bg=renkler[0])
     arama_alani.pack(fill="x")
     arama_alani_olustur(arama_alani)
 
-    kartlar_alani = tk.Frame(frame, bg="white")
+    kartlar_alani = tk.Frame(frame, bg=renkler[0])
     kartlar_alani.pack(fill="both", expand=True)
 
     global icerik_ref
@@ -105,7 +105,7 @@ def marka_butonlari_olustur(alan):
     for marka in markalari_getir():
         var = tk.BooleanVar()
         marka_vars[marka] = var
-        tk.Checkbutton(alan, text=marka, variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
+        tk.Checkbutton(alan, text=marka, variable=var,bg=renkler[3]).pack(anchor="w", padx=20)
 def fiyat_butonlari_olustur(alan):
     global fiyat_vars
     fiyat_vars = {}
@@ -115,7 +115,7 @@ def fiyat_butonlari_olustur(alan):
         var = tk.BooleanVar()
         fiyat_vars[(min_f, max_f)] = var
         tk.Checkbutton(
-            alan,text=f"{min_f} – {max_f} ₺",variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
+            alan,text=f"{min_f} – {max_f} ₺",variable=var,bg=renkler[3]).pack(anchor="w", padx=20)
 def filtreleri_temizle(marka_vars, fiyat_vars):
     for var in marka_vars.values():
         var.set(False)
@@ -131,12 +131,12 @@ def kartlari_temizle():
 def arac_ekle_sayfasi(baba_frame):
     anaframe = tk.Frame(baba_frame)
     anaframe.pack(fill="both", expand=True)
-    canvas = tk.Canvas(anaframe, bg="white")
+    canvas = tk.Canvas(anaframe, bg=renkler[0])
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar = tk.Scrollbar(anaframe, orient="vertical", command=canvas.yview)
     scrollbar.pack(side="right", fill="y")
     canvas.configure(yscrollcommand=scrollbar.set)
-    frame = tk.Frame(canvas, bg="white")
+    frame = tk.Frame(canvas, bg=renkler[0])
     canvas_window = canvas.create_window((0, 0), window=frame, anchor="nw")
     frame.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
     canvas.bind("<Configure>",lambda e: canvas.itemconfig(canvas_window, width=e.width))
@@ -189,12 +189,12 @@ def araclar_sayfasini_yenile():
 def yardim_sayfasi(baba_frame):
     anaframe = tk.Frame(baba_frame)
     anaframe.pack(fill="both", expand=True)
-    canvas = tk.Canvas(anaframe, bg="white")
+    canvas = tk.Canvas(anaframe, bg=renkler[0])
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar = tk.Scrollbar(anaframe, orient="vertical", command=canvas.yview)
     scrollbar.pack(side="right", fill="y")
     canvas.configure(yscrollcommand=scrollbar.set)
-    frame = tk.Frame(canvas, bg="white")
+    frame = tk.Frame(canvas, bg=renkler[0])
     canvas_window = canvas.create_window((0, 0), window=frame, anchor="nw")
     frame.bind("<Configure>",lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
     canvas.bind("<Configure>",lambda e: canvas.itemconfig(canvas_window, width=e.width))
@@ -205,35 +205,35 @@ def yardim_sayfasi(baba_frame):
 
 
 def arama_alani_olustur(ana_frame):
-    frame = tk.Frame(ana_frame, bg="#ffffff", pady=10)
+    frame = tk.Frame(ana_frame, bg=renkler[0], pady=10)
     frame.pack(fill="x", padx=20)
-    tk.Label(frame,text="Araç Ara:",font=("Arial", 11, "bold"),bg="#ffffff").pack(side="left")
+    tk.Label(frame,text="Araç Ara:",font=("Arial", 11, "bold"),bg=renkler[0]).pack(side="left")
     entry = tk.Entry(frame, width=80,bd=1,relief="solid")
     entry.pack(side="left", padx=10)
     tk.Button(frame,text="Ara",command=lambda:arama_kontrol(entry.get())).pack(side="left")
 
 def aracKarti_olustur(ana_frame, arac):
-    kart = tk.Frame(ana_frame, bg="#f7f7f7", bd=1, relief="solid")
+    kart = tk.Frame(ana_frame, bg=renkler[0], bd=1, relief="solid")
     kart.pack(fill="x", padx=20, pady=10)
-    sol = tk.Frame(kart, bg="#f7f7f7")
+    sol = tk.Frame(kart, bg=renkler[0])
     sol.pack(side="left", padx=10, pady=10)
     tk.Label(sol, text=f"Plaka: {arac['plaka']}").pack(anchor="w")
     tk.Label(sol, text=f"{arac['marka']} {arac['model']}").pack(anchor="w")
     tk.Label(sol, text=f"Günlük Ücret: {arac['gunluk_ucret']} ₺").pack(anchor="w")
     durum = arac["durum"].capitalize()
     tk.Label(sol, text=f"Durum: {durum}").pack(anchor="w")
-    sağ = tk.Frame(kart, bg="#f7f7f7", width=120)
+    sağ = tk.Frame(kart, bg=renkler[0], width=120)
     sağ.pack(side="right", padx=10)
-    tk.Label(sağ, text="🚗", font=("Arial", 40),bg="#f7f7f7").pack()
+    tk.Label(sağ, text="🚗", font=("Arial", 40),bg=renkler[0]).pack()
 
     if arac["silinebilir"]:
-        tk.Button(sağ, text="Düzenle", bg="#3498db", fg="white",command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
-        tk.Button(sağ, text="Sil", fg="white", bg="red", command=lambda p=arac["plaka"]: sil_ve_yenile(p)).pack(pady=5)
+        tk.Button(sağ, text="Düzenle", bg=renkler[1], fg=renkler[0],command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
+        tk.Button(sağ, text="Sil", fg=renkler[0], bg=renkler[5], command=lambda p=arac["plaka"]: sil_ve_yenile(p)).pack(pady=5)
     else:
         if arac["durum"] == "müsait":
-            tk.Button(kart,text="Kirala",bg="green",fg="white",command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
+            tk.Button(kart,text="Kirala",bg=renkler[6],fg=renkler[0],command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
         else:
-            tk.Button(kart,text="İade Et",bg="orange",command=lambda p=arac["plaka"]: iade_ve_yenile(p)).pack(pady=5)
+            tk.Button(kart,text="İade Et",bg=renkler[4],command=lambda p=arac["plaka"]: iade_ve_yenile(p)).pack(pady=5)
 
     if arac["durum"] == "kirada":
         tk.Label(sol, text=f"Müşteri: {arac['musteri_ad']}").pack(anchor="w")
@@ -255,7 +255,7 @@ def arac_duzenleme_penceresi(arac):
     pencere.title("Araç Düzenle")
     pencere.geometry("300x300")
     tk.Label(pencere, text="Plaka (Değiştirilemez)").pack()
-    tk.Label(pencere, text=arac["plaka"], fg="gray").pack()
+    tk.Label(pencere, text=arac["plaka"], fg=renkler[0]).pack()
     tk.Label(pencere, text="Marka").pack()
     marka_entry = tk.Entry(pencere)
     marka_entry.insert(0, arac["marka"])
@@ -301,6 +301,9 @@ def kiralama_penceresi(plaka):
         try:
             baslangic = datetime.strptime(bas_entry.get(), "%Y-%m-%d")
             bitis = datetime.strptime(bit_entry.get(), "%Y-%m-%d")
+            if baslangic.date() < datetime.today().date() or bitis.date() < datetime.today().date():
+                messagebox.showerror("Hata", "Girilen tarih geçerli değil")
+                return
             if bitis <= baslangic:
                 messagebox.showerror("Hata", "Bitiş tarihi başlangıçtan sonra olmalı")
                 return
