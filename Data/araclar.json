@@ -90,6 +90,7 @@
         "durum": "müsait",
         "musteri_ad": "",
         "gun_sayisi": 0,
-        "silinebilir": true
+        "silinebilir": true,
+        "fotograf": "data/default.png"
     }
 ]

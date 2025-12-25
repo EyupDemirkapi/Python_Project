@@ -1,8 +1,17 @@
 import tkinter as tk
+
 from veri_duzenleme import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 
 sayfalar = {}
+fotoimport = None
+ana_frame=None
+ana_canvas=None
+markalar_frame = None
+fiyatlar_frame = None
+icerik_ref = None
+marka_vars = None
+fiyat_vars = None
 
 renkler = ["#f7f7f7","#639bff","#000000","#ecf0f1","#a8db2b","#b70000","#e4b133"]
 
@@ -148,16 +157,28 @@ def arac_ekle_sayfasi(baba_frame):
     tk.Label(frame, text="Model").pack(anchor="w", padx=40)
     model_entry = tk.Entry(frame)
     model_entry.pack(fill="x", padx=40, pady=5)
+    tk.Label(frame, text="Fotoğraf").pack(anchor="w", padx=40)
+    foto_entry = tk.Button(frame,text="Seç...",command=browsefunc)
+    foto_entry.pack(fill="x", padx=40, pady=5)
     tk.Label(frame, text="Günlük Ücret").pack(anchor="w", padx=40)
     ucret_entry = tk.Entry(frame)
     ucret_entry.pack(fill="x", padx=40, pady=5)
     def formdan_arac_ekle():
+        global fotoimport
         try:
             if not plaka_entry.get() or not marka_entry.get() or not model_entry.get():
                 messagebox.showerror("Hata", "Tüm alanlar doldurulmalı")
                 return
+            if not fotoimport:
+                fotoimport = "data/default.png"
+            else:
+                fotoimport = fotoimport.replace("/","\\")
+                kopyakodu = "copy "+fotoimport+" "+os.getcwd()+"\data\\"+fotoimport.split("\\")[-1]
+                os.system(kopyakodu)
+                print(kopyakodu)
+                fotoimport = "data/"+fotoimport.split("\\")[-1]
             ucret = int(ucret_entry.get())
-            arac = {"plaka": plaka_entry.get(),"marka": marka_entry.get(),"model": model_entry.get(),"gunluk_ucret": ucret}
+            arac = {"plaka": plaka_entry.get(),"marka": marka_entry.get(),"model": model_entry.get(),"fotograf": fotoimport,"gunluk_ucret": ucret}
             arac_ekle(arac)
             messagebox.showinfo("Başarılı", "Araç eklendi")
             plaka_entry.delete(0, tk.END)
@@ -169,6 +190,12 @@ def arac_ekle_sayfasi(baba_frame):
             messagebox.showerror("Hata", "Günlük ücret sayı olmalı")
     tk.Button(frame, text="Aracı Kaydet", command=formdan_arac_ekle).pack(pady=20)
     return anaframe
+
+def browsefunc():
+    global fotoimport
+    filename = filedialog.askopenfilename(filetypes=(("png files","*.png"),("All files","*.*")))
+    fotoimport = filename
+    print(fotoimport)
 
 def araclari_goster():
     kartlari_temizle()
