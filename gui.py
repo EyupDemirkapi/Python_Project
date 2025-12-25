@@ -2,11 +2,9 @@ import tkinter as tk
 from veri_duzenleme import *
 from tkinter import messagebox
 
-ana_frame = None
 sayfalar = {}
-icerik_ref = None
 
-renkler = ["#f7f7f7","#639bff","000000","#ecf0f1","#a8db2b","#b70000","#e4b133"]
+renkler = ["#f7f7f7","#639bff","#000000","#ecf0f1","#a8db2b","#b70000","#e4b133"]
 
 
 def start_app():
@@ -227,11 +225,11 @@ def aracKarti_olustur(ana_frame, arac):
     tk.Label(sağ, text="🚗", font=("Arial", 40),bg=renkler[0]).pack()
 
     if arac["silinebilir"]:
-        tk.Button(sağ, text="Düzenle", bg=renkler[1], fg=renkler[0],command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
+        tk.Button(sağ, text="Düzenle", bg=renkler[1], fg=renkler[2],command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
         tk.Button(sağ, text="Sil", fg=renkler[0], bg=renkler[5], command=lambda p=arac["plaka"]: sil_ve_yenile(p)).pack(pady=5)
     else:
         if arac["durum"] == "müsait":
-            tk.Button(kart,text="Kirala",bg=renkler[6],fg=renkler[0],command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
+            tk.Button(kart,text="Kirala",bg=renkler[6],fg=renkler[2],command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
         else:
             tk.Button(kart,text="İade Et",bg=renkler[4],command=lambda p=arac["plaka"]: iade_ve_yenile(p)).pack(pady=5)
 
@@ -373,5 +371,3 @@ def scroll_guncelle():
     if ana_canvas:
         ana_canvas.update_idletasks()
         ana_canvas.configure(scrollregion=ana_canvas.bbox("all"))
-
-

@@ -66,16 +66,6 @@
         "gun_sayisi": 0
     },
     {
-        "plaka": "34 asd 345",
-        "marka": "golfwoklsvagena",
-        "model": "volkswagena",
-        "gunluk_ucret": 1,
-        "durum": "müsait",
-        "musteri_ad": "",
-        "gun_sayisi": 0,
-        "silinebilir": true
-    },
-    {
         "plaka": "345",
         "marka": "ford",
         "model": "clio",
