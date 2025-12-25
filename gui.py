@@ -222,7 +222,10 @@ def aracKarti_olustur(ana_frame, arac):
     tk.Label(sol, text=f"Durum: {durum}").pack(anchor="w")
     sağ = tk.Frame(kart, bg=renkler[0], width=120)
     sağ.pack(side="right", padx=10)
-    tk.Label(sağ, text="🚗", font=("Arial", 40),bg=renkler[0]).pack()
+    img = tk.PhotoImage(file=arac['fotograf'],width=125,height=125)
+    lbl = tk.Label(sağ, image=img,bg=renkler[0])
+    lbl.image = img
+    lbl.pack()
 
     if arac["silinebilir"]:
         tk.Button(sağ, text="Düzenle", bg=renkler[1], fg=renkler[2],command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
