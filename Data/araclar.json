@@ -1,1 +1,92 @@
-[]
+[
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": false
+    },
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": false
+    },
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": false
+    },
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "silinebilir": false,
+        "musteri_ad": "",
+        "gun_sayisi": 0
+    },
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "silinebilir": false,
+        "musteri_ad": "",
+        "gun_sayisi": 0
+    },
+    {
+        "plaka": "07RTY654",
+        "marka": "Volkswagen",
+        "model": "Golf",
+        "gunluk_ucret": 900,
+        "durum": "müsait",
+        "silinebilir": false,
+        "musteri_ad": "",
+        "gun_sayisi": 0
+    },
+    {
+        "plaka": "34 asd 345",
+        "marka": "golfwoklsvagena",
+        "model": "volkswagena",
+        "gunluk_ucret": 1,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": true
+    },
+    {
+        "plaka": "aefrwef",
+        "marka": "fiat",
+        "model": "qwed",
+        "gunluk_ucret": 300000,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": true
+    },
+    {
+        "plaka": "345",
+        "marka": "ford",
+        "model": "clio",
+        "gunluk_ucret": 345,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": true
+    }
+]

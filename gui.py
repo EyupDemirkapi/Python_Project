@@ -6,6 +6,8 @@ ana_frame = None
 sayfalar = {}
 icerik_ref = None
 
+renkler = ["#ffffff","#639bff","000000","#ecf0f1","000000","#ecf0f1"]
+
 
 def start_app():
     root = tk.Tk()
@@ -17,16 +19,16 @@ def start_app():
     root.mainloop()
 
 def baslik_olustur(root):
-    header = tk.Frame(root, height=80, bg="Blue")
+    header = tk.Frame(root, height=80, bg=renkler[1])
     header.pack(fill="x")
-    tk.Label(header,text="🚗 Araç Kiralama Sistemi ✈️",fg="white",bg="Blue",font=("Arial",20,"bold")).pack(pady=20)
+    tk.Label(header,text="🚗 Araç Kiralama Sistemi ✈️",fg=renkler[0], bg=renkler[1],font=("Arial",20,"bold")).pack(pady=20)
 
 def menu_olustur(root):
-    menu = tk.Frame(root, height=40, bg="LightGray")
+    menu = tk.Frame(root, height=60, bg=renkler[3])
     menu.pack(fill="x")
-    tk.Button(menu, text="Araçlar",command=lambda: sayfa_goster("araclar")).pack(side="left", padx=10)
-    tk.Button(menu, text="Araç Ekle",command=lambda: sayfa_goster("arac_ekle")).pack(side="left", padx=10)
-    tk.Button(menu, text="Yardım",command=lambda: sayfa_goster("yardim")).pack(side="left", padx=10)
+    tk.Button(menu, text="Araçlar",command=lambda: sayfa_goster("araclar")).pack(side="left", padx=10, pady=10)
+    tk.Button(menu, text="Araç Ekle",command=lambda: sayfa_goster("arac_ekle")).pack(side="left", padx=10, pady=10)
+    tk.Button(menu, text="Yardım",command=lambda: sayfa_goster("yardim")).pack(side="left", padx=10, pady=10)
 
 def anabolum_olustur(root):
     global ana_frame
@@ -45,7 +47,7 @@ def sayfa_goster(ad):
 def araclar_sayfasi(baba_frame):
     anaframe = tk.Frame(baba_frame)
     anaframe.pack(fill="both", expand=True)
-    filtre_alani = tk.Frame(anaframe, width=250, bg="#ecf0f1")
+    filtre_alani = tk.Frame(anaframe, width=250, bg=renkler[5])
     filtre_alani.pack(side="left", fill="y")
     filtre_alani.pack_propagate(False)
     sag_frame = tk.Frame(anaframe)
@@ -55,30 +57,26 @@ def araclar_sayfasi(baba_frame):
 
     global ana_canvas
     ana_canvas = canvas
-
+    canvas.bind_all("<MouseWheel>", mouse_wheel)
     scrollbar = tk.Scrollbar(sag_frame, orient="vertical", command=canvas.yview)
     scrollbar.pack(side="right", fill="y")
     canvas.configure(yscrollcommand=scrollbar.set)
     frame = tk.Frame(canvas, bg="white")
     canvas.create_window((0, 0), window=frame, anchor="nw")
     frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-    tk.Label(filtre_alani, text="Filtreler", bg="Gray",font=("Arial", 11, "bold")).pack(fill="x", pady=5)
-    marka_vars = {}
+
+    tk.Label(filtre_alani, text="Filtreler",fg=renkler[0], bg=renkler[1],font=("Arial", 11, "bold")).pack(fill="x", pady=(0,5))
     tk.Label(filtre_alani, text="Markalar", bg="#ecf0f1",font=("Arial", 10, "bold")).pack(anchor="w", padx=10)
-
-    for marka in markalari_getir():
-        var = tk.BooleanVar()
-        marka_vars[marka] = var
-        tk.Checkbutton(filtre_alani, text=marka, variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
-
-    fiyat_vars = {}
+    global markalar_frame
+    markalar_frame = tk.Frame(filtre_alani, bg="#ecf0f1")
+    markalar_frame.pack(fill="x")
+    marka_butonlari_olustur(markalar_frame)
     tk.Label(filtre_alani, text="Fiyat Aralığı", bg="#ecf0f1",font=("Arial", 10, "bold")).pack(anchor="w", padx=10, pady=(10, 0))
+    global fiyatlar_frame
+    fiyatlar_frame = tk.Frame(filtre_alani, bg="#ecf0f1")
+    fiyatlar_frame.pack(fill="x")
+    fiyat_butonlari_olustur(fiyatlar_frame)
 
-    for min_f, max_f in fiyat_araliklarini_getir():
-        var = tk.BooleanVar()
-        fiyat_vars[(min_f, max_f)] = var
-        tk.Checkbutton(
-            filtre_alani,text=f"{min_f} – {max_f} ₺",variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
     tk.Button(filtre_alani, text="Filtrele",command=lambda: checkbox_filtrele(marka_vars, fiyat_vars)).pack(pady=5)
     tk.Button(filtre_alani, text="Temizle",command=lambda: filtreleri_temizle(marka_vars, fiyat_vars)).pack(pady=5)
     arama_alani = tk.Frame(frame, bg="white")
@@ -95,6 +93,29 @@ def araclar_sayfasi(baba_frame):
 
     return anaframe
 
+
+def mouse_wheel(event):
+    ana_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+def marka_butonlari_olustur(alan):
+    global marka_vars
+    marka_vars = {}
+    for buton in alan.winfo_children():
+        buton.pack_forget()
+    for marka in markalari_getir():
+        var = tk.BooleanVar()
+        marka_vars[marka] = var
+        tk.Checkbutton(alan, text=marka, variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
+def fiyat_butonlari_olustur(alan):
+    global fiyat_vars
+    fiyat_vars = {}
+    for buton in alan.winfo_children():
+        buton.pack_forget()
+    for min_f, max_f in fiyat_araliklarini_getir():
+        var = tk.BooleanVar()
+        fiyat_vars[(min_f, max_f)] = var
+        tk.Checkbutton(
+            alan,text=f"{min_f} – {max_f} ₺",variable=var,bg="#ecf0f1").pack(anchor="w", padx=20)
 def filtreleri_temizle(marka_vars, fiyat_vars):
     for var in marka_vars.values():
         var.set(False)
@@ -161,6 +182,8 @@ def araclari_goster():
 def araclar_sayfasini_yenile():
     if icerik_ref:
         araclari_goster()
+        marka_butonlari_olustur(markalar_frame)
+        fiyat_butonlari_olustur(fiyatlar_frame)
 
 
 def yardim_sayfasi(baba_frame):
@@ -201,13 +224,17 @@ def aracKarti_olustur(ana_frame, arac):
     tk.Label(sol, text=f"Durum: {durum}").pack(anchor="w")
     sağ = tk.Frame(kart, bg="#f7f7f7", width=120)
     sağ.pack(side="right", padx=10)
-    if arac["durum"] == "müsait":
-        tk.Button(kart,text="Kirala",bg="green",fg="white",command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
+    tk.Label(sağ, text="🚗", font=("Arial", 40),bg="#f7f7f7").pack()
+
+    if arac["silinebilir"]:
+        tk.Button(sağ, text="Düzenle", bg="#3498db", fg="white",command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
+        tk.Button(sağ, text="Sil", fg="white", bg="red", command=lambda p=arac["plaka"]: sil_ve_yenile(p)).pack(pady=5)
     else:
-        tk.Button(kart,text="İade Et",bg="orange",command=lambda p=arac["plaka"]: iade_ve_yenile(p)).pack(pady=5)
-    tk.Label(sağ, text="🚗", font=("Arial", 40)).pack()
-    tk.Button(sağ,text="Düzenle",bg="#3498db",fg="white",command=lambda a=arac: arac_duzenleme_penceresi(a)).pack(pady=5)
-    tk.Button(sağ, text="Sil", fg="white", bg="red", command=lambda p=arac["plaka"]: sil_ve_yenile(p)).pack(pady=5)
+        if arac["durum"] == "müsait":
+            tk.Button(kart,text="Kirala",bg="green",fg="white",command=lambda p=arac["plaka"]: kiralama_penceresi(p)).pack(pady=5)
+        else:
+            tk.Button(kart,text="İade Et",bg="orange",command=lambda p=arac["plaka"]: iade_ve_yenile(p)).pack(pady=5)
+
     if arac["durum"] == "kirada":
         tk.Label(sol, text=f"Müşteri: {arac['musteri_ad']}").pack(anchor="w")
         tk.Label(sol, text=f"{arac['baslangic_tarihi']} → {arac['bitis_tarihi']}").pack(anchor="w")
@@ -343,4 +370,5 @@ def scroll_guncelle():
     if ana_canvas:
         ana_canvas.update_idletasks()
         ana_canvas.configure(scrollregion=ana_canvas.bbox("all"))
+
 

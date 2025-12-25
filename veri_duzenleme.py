@@ -13,11 +13,12 @@ def araclari_oku():
         arac.setdefault("durum", "müsait")
         arac.setdefault("musteri_ad", "")
         arac.setdefault("gun_sayisi", 0)
+        arac.setdefault("silinebilir", False)
     return araclar
 
 def arac_ekle(arac):
     araclar = araclari_oku()
-    araclar.append({"plaka": arac["plaka"],"marka": arac["marka"],"model": arac["model"],"gunluk_ucret": arac["gunluk_ucret"],"durum": "müsait","musteri_ad": "","gun_sayisi": 0,})
+    araclar.append({"plaka": arac["plaka"],"marka": arac["marka"],"model": arac["model"],"gunluk_ucret": arac["gunluk_ucret"],"durum": "müsait","musteri_ad": "","gun_sayisi": 0,"silinebilir":True})
     with open(veri_dosyasi, "w", encoding="utf-8") as f:
         json.dump(araclar, f, ensure_ascii=False, indent=4)
 
