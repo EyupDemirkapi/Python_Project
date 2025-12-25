@@ -222,7 +222,7 @@ def aracKarti_olustur(ana_frame, arac):
     tk.Label(sol, text=f"Durum: {durum}").pack(anchor="w")
     sağ = tk.Frame(kart, bg=renkler[0], width=120)
     sağ.pack(side="right", padx=10)
-    img = tk.PhotoImage(file=arac['fotograf'],width=125,height=125)
+    img = tk.PhotoImage(file=arac['fotograf'],width=100,height=100)
     lbl = tk.Label(sağ, image=img,bg=renkler[0])
     lbl.image = img
     lbl.pack()

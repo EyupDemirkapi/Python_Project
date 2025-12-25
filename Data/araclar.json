@@ -81,5 +81,15 @@
         "musteri_ad": "",
         "gun_sayisi": 0,
         "silinebilir": true
+    },
+    {
+        "plaka": "123rg534",
+        "marka": "ford",
+        "model": "reno",
+        "gunluk_ucret": 1234,
+        "durum": "müsait",
+        "musteri_ad": "",
+        "gun_sayisi": 0,
+        "silinebilir": true
     }
 ]
