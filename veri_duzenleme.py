@@ -59,7 +59,7 @@ def arac_iade(plaka):
         json.dump(araclar, f, ensure_ascii=False, indent=4)
     return ucret
 
-def guncelle_arac(plaka, marka, model, gunluk_ucret):
+def guncelle_arac(plaka, marka, model, gunluk_ucret, fotograf):
     with open(veri_dosyasi, "r", encoding="utf-8") as f:
         araclar = json.load(f)
     for arac in araclar:
@@ -67,6 +67,7 @@ def guncelle_arac(plaka, marka, model, gunluk_ucret):
             arac["marka"] = marka
             arac["model"] = model
             arac["gunluk_ucret"] = gunluk_ucret
+            arac["fotograf"] = fotograf
             break
     with open(veri_dosyasi, "w", encoding="utf-8") as f:
         json.dump(araclar, f, ensure_ascii=False, indent=4)

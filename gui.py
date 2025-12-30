@@ -172,11 +172,7 @@ def arac_ekle_sayfasi(baba_frame):
             if not fotoimport:
                 fotoimport = "assets/default.png"
             else:
-                fotoimport = fotoimport.replace("/","\\")
-                kopyakodu = "copy "+fotoimport+" "+os.getcwd()+"\\assets\\"+fotoimport.split("\\")[-1]
-                os.system(kopyakodu)
-                print(kopyakodu)
-                fotoimport = "assets/"+fotoimport.split("\\")[-1]
+                fotoyolubiznis()
             ucret = int(ucret_entry.get())
             arac = {"plaka": plaka_entry.get(),"marka": marka_entry.get(),"model": model_entry.get(),"fotograf": fotoimport,"gunluk_ucret": ucret}
             arac_ekle(arac)
@@ -185,6 +181,7 @@ def arac_ekle_sayfasi(baba_frame):
             marka_entry.delete(0, tk.END)
             model_entry.delete(0, tk.END)
             ucret_entry.delete(0, tk.END)
+            fotoimport = None
             araclar_sayfasini_yenile()
         except ValueError:
             messagebox.showerror("Hata", "Günlük ücret sayı olmalı")
@@ -196,6 +193,14 @@ def browsefunc():
     filename = filedialog.askopenfilename(filetypes=(("png files","*.png"),("All files","*.*")))
     fotoimport = filename
     print(fotoimport)
+
+def fotoyolubiznis():
+    global fotoimport
+    fotoimport = fotoimport.replace("/","\\")
+    kopyakodu = "copy "+fotoimport+" "+os.getcwd()+"\\assets\\"+fotoimport.split("\\")[-1]
+    os.system(kopyakodu)
+    print(kopyakodu)
+    fotoimport = "assets/"+fotoimport.split("\\")[-1]
 
 def araclari_goster():
     kartlari_temizle()
@@ -279,6 +284,7 @@ def iade_ve_yenile(plaka):
 
 def arac_duzenleme_penceresi(arac):
     pencere = tk.Toplevel()
+    pencere.grab_set()
     pencere.title("Araç Düzenle")
     pencere.geometry("300x300")
     tk.Label(pencere, text="Plaka (Değiştirilemez)").pack()
@@ -291,17 +297,22 @@ def arac_duzenleme_penceresi(arac):
     model_entry = tk.Entry(pencere)
     model_entry.insert(0, arac["model"])
     model_entry.pack()
+    tk.Label(pencere, text="Fotoğraf").pack()
+    foto_entry = tk.Button(pencere,text="Seç...",command=browsefunc)
+    foto_entry.pack()
     tk.Label(pencere, text="Günlük Ücret").pack()
     ucret_entry = tk.Entry(pencere)
     ucret_entry.insert(0, str(arac["gunluk_ucret"]))
     ucret_entry.pack()
     def kaydet():
+        fotoyolubiznis()
         try:
             guncelle_arac(
                 arac["plaka"],
                 marka_entry.get(),
                 model_entry.get(),
-                int(ucret_entry.get())
+                int(ucret_entry.get()),
+                fotoimport
             )
             messagebox.showinfo("Başarılı", "Araç güncellendi")
             pencere.destroy()
