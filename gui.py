@@ -169,12 +169,35 @@ def arac_ekle_sayfasi(baba_frame):
             if not plaka_entry.get() or not marka_entry.get() or not model_entry.get():
                 messagebox.showerror("Hata", "Tüm alanlar doldurulmalı")
                 return
+            plaka = plaka_entry.get().replace(" ", "")
+            #plaka kontrol
+            if len(plaka) > 6 and len(plaka) < 9:
+                if plaka[0].isdigit() and plaka[1].isdigit():
+                    if int(plaka[0]+plaka[1])>81:
+                        messagebox.showerror("Hata", "Plakanın ülke numarası 81'den büyük olamaz")
+                        return
+                    elif int(plaka[0]+plaka[1])<1:
+                        messagebox.showerror("Hata", "Plakanın ülke numarası 1'den küçük olamaz")
+                        return
+                else:
+                    messagebox.showerror("Hata", "Plakanın ilk iki hanesi numara olmalı")
+                    return
+                if plaka[2].isdigit() or plaka[3].isdigit() or plaka[4].isdigit():
+                    messagebox.showerror("Hata", "Plakanın orta üç hanesi harf olmalı")
+                    return
+                if not plaka[5].isdigit() or not plaka[6].isdigit() or (len(plaka) == 8 and not plaka[7].isdigit()):
+                    messagebox.showerror("Hata", "Plakanın son haneleri numara olmalı")
+                    return
+            else:
+                messagebox.showerror("Hata", "Plaka eksik ya da fazla")
+                return
+            #plaka kontrol bitiş
             if not fotoimport:
                 fotoimport = "assets/default.png"
             else:
                 fotoyolubiznis()
             ucret = int(ucret_entry.get())
-            arac = {"plaka": plaka_entry.get(),"marka": marka_entry.get(),"model": model_entry.get(),"fotograf": fotoimport,"gunluk_ucret": ucret}
+            arac = {"plaka": plaka,"marka": marka_entry.get(),"model": model_entry.get(),"fotograf": fotoimport,"gunluk_ucret": ucret}
             arac_ekle(arac)
             messagebox.showinfo("Başarılı", "Araç eklendi")
             plaka_entry.delete(0, tk.END)
