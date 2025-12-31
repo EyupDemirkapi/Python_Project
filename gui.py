@@ -276,7 +276,10 @@ def aracKarti_olustur(ana_frame, arac):
     tk.Label(sol, text=f"Durum: {durum}").pack(anchor="w")
     sağ = tk.Frame(kart, bg=renkler[0], width=120)
     sağ.pack(side="right", padx=10)
-    img = tk.PhotoImage(file=arac['fotograf'],width=100,height=100)
+    img = tk.PhotoImage(file=arac['fotograf'])
+    img = img.subsample(img.width()//100, img.height()//100)
+    img.width = 100
+    img.height = 100
     lbl = tk.Label(sağ, image=img,bg=renkler[0])
     lbl.image = img
     lbl.pack()
@@ -328,7 +331,11 @@ def arac_duzenleme_penceresi(arac):
     ucret_entry.insert(0, str(arac["gunluk_ucret"]))
     ucret_entry.pack()
     def kaydet():
-        fotoyolubiznis()
+        global fotoimport
+        if not fotoimport:
+            fotoimport = "assets/default.png"
+        else:
+            fotoyolubiznis()
         try:
             guncelle_arac(
                 arac["plaka"],
